@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ajax</title>
+		<script>
+			function ajaxEx(recurso, asincrono) {
+				var ajax_request = new XMLHttpRequest();
+				ajax_request.onreadystatechange = function() {
+					document.getElementById("estado").innerHTML = ajax_request.readyState;
+					if (ajax_request.readyState == 4) {
+						document.getElementById("info")
+							.innerHTML = ajax_request.responseText;
+					}
+				}
+				ajax_request.open(
+					"GET"
+					,recurso
+					,asincrono);
+				ajax_request.send();				
+			}	
+		</script>
+	</head>
+
+	<body>
+	
+		<h1>Prueba de Ajax</h1>
+	
+		<button onclick="ajaxEx('textoUno.html', true)">TextoUno</button>
+		<button onclick="ajaxEx('progUno.php', true)">ProgUnoAsynch</button>
+		<button onclick="ajaxEx('progUno.php', false)">ProgUnoSynch</button>
+		<div id="info" style="border:solid">
+			<h2>Texto original</h2>
+			<p>Hola Ajax</p>
+		</div>
+		<p>Estado: <span id="estado"></span></p>
+	
+	</body>
+
+</html>

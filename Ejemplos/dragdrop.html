@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>Drag and Drop</title>
+		<style>
+			#verde, #amarillo {border:solid; width:80px; height:80px; position:absolute;}
+			#verde {background-color:green;}
+			#amarillo {background-color:yellow;}
+		</style>
+		<script>
+			function myMove(e) {
+				if(arrastrar) {
+					verde.style.left = e.clientX - ox + "px";
+					verde.style.top = e.clientY - oy + "px";
+				}
+			}
+			function myDown(e) {
+				arrastrar = true;
+				ox = e.offsetX;
+				oy = e.offsetY;
+			}
+			function myUp(e) {
+				arrastrar = false;
+				var a = amarillo.getBoundingClientRect();
+				var mX = e.clientX;
+				var mY = e.clientY;
+				if(mX >= a.left && mX <= a.right && mY >= a.top && mY <= a.bottom) {
+					amarillo.style.backgroundColor = "#F00";
+					verde.style.display = "none";
+				} else {
+					verde.style.top = Math.random() * h + "px";
+					verde.style.left = Math.random() * w + "px";
+				}
+			}
+			function reset() {
+				arrastrar = false;
+				h = document.height;
+				w = document.width;		
+				verde = document.getElementById("verde");
+				verde.style.top = Math.random() * h + "px";
+				verde.style.left = Math.random() * w + "px";
+				amarillo = document.getElementById("amarillo");
+				amarillo.style.top = Math.random() * h + "px";
+				amarillo.style.left = Math.random() * w + "px";
+				verde.addEventListener("mousedown", myDown);
+				verde.addEventListener("mouseup", myUp);
+				document.addEventListener("mousemove", myMove);
+				amarillo.addEventListener("mouseover", myOver);
+			}
+		</script>
+	</head>
+
+	<body onload="reset()">
+	
+		<h1> Arrastre el verde sobre el amarillo </h1>
+			
+		<div id="amarillo"></div>
+		
+		<div id="verde"></div>
+	</body>
+
+</html>
